@@ -24,7 +24,7 @@ xt_highint5:
 /* Clear interupt on GPIO26 in GPIO_STATUS_W1TC_REG */
     movi    a14, 0x3FF4404C
     movi    a15, (1<<26)
-    l32i    a15, a14, 0
+    s32i    a15, a14, 0
 
 /* Try to force write */
     movi    a14, 0x3FF44044
