@@ -9,9 +9,6 @@
 #include "soc/dport_reg.h"
 
 #define L5_INTR_STACK_SIZE  12
-#define L5_INTR_A2_OFFSET   0
-#define L5_INTR_A3_OFFSET   4
-#define L5_INTR_A4_OFFSET   8
     .data
 _l5_intr_stack:
     .space      L5_INTR_STACK_SIZE
@@ -21,17 +18,13 @@ _l5_intr_stack:
     .type       xt_highint5,@function
     .align      4
 xt_highint5:
-/* Clear interupt on GPIO26 in GPIO_STATUS_W1TC_REG */
-    movi    a14, 0x3FF4404C
-    movi    a15, (1<<26)
+    /* Clear interupt on GPIO26 */
+    movi    a14, GPIO_STATUS_W1TC_REG
+    movi    a15, (1 << 26)
     s32i    a15, a14, 0
 
-/* Try to force write */
-    movi    a14, 0x3FF44044
-    l32i    a14, a14, 0
-    memw
-
-    movi    a14, test
+    /* Increment intr_cnt */
+    movi    a14, intr_cnt
     l32i    a15, a14, 0
     addi    a15, a15, 1
     s32i    a15, a14, 0
