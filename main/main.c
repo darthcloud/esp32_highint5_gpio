@@ -6,6 +6,8 @@
 #include "esp_intr_alloc.h"
 #include "driver/gpio.h"
 
+uint32_t test;
+
 static void cpu1_task(void *arg) {
     gpio_config_t io_conf = {
         .intr_type = GPIO_PIN_INTR_NEGEDGE,
@@ -26,7 +28,7 @@ static void cpu1_task(void *arg) {
 #endif
 
     while (1) {
-        printf("%s alive\n", __FUNCTION__);
+        printf("%s alive test: %u\n", __FUNCTION__, test);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }

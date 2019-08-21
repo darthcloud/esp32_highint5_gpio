@@ -31,6 +31,12 @@ xt_highint5:
     l32i    a14, a14, 0
     memw
 
+    movi    a14, test
+    l32i    a15, a14, 0
+    addi    a15, a15, 1
+    s32i    a15, a14, 0
+    memw
+
     rsr     a0, EXCSAVE_5 // restore a0
     rfi     5
 
